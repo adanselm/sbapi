@@ -1,0 +1,22 @@
+.footer {
+  margin-top: 50px;
+}
+
+.users-list {
+  width: 100%;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.users-list tr {
+  line-height: 3em;
+}
+
+li a {
+ color: #428bca;
+ text-decoration: none;
+}
+
+li a .title {
+ font-size: 1.2em;
+}

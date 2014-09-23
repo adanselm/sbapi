@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-md-4">
+    <h2>List Of Users</h2>
+  </div>
+  <div class="col-md-8">
+    <a href="<%= user_path(:new) %>" class="btn btn-danger pull-right"><i class="glyphicon glyphicon-plus glyphicon-white"></i> Create a new user</a>
+  </div>
+</div>
+<div class="table-responsive">
+  <table class="table-striped users-list">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <%= for user <- @users do %>
+      <tr>
+      <td>
+        <a href="<%= user_path(:show, user.id) %>">
+          <span class="title"><%= user.email %></span>
+        </a>
+      </td>
+      <td><%= user.first_name %></td>
+      <td><%= user.last_name %></td>
+      <td>
+        <div class="btn-group">
+          <a href="<%= user_path(:show, user.id) %>?action=delete" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-remove"></i> Delete</a>
+          <a href="<%= user_path(:edit, user.id) %>" class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+    </tbody>
+  </table>
+</div>
+
