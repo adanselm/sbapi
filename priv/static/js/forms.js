@@ -6,7 +6,7 @@ function formhash(form, password, email) {
   p.type = "hidden"
 
   // Call sjcl HMAC-SHA256 with salt on the password
-  var key = sjcl.codec.utf8String.toBits(email + "springbeats.com");
+  var key = sjcl.codec.utf8String.toBits(email.value + "springbeats.com");
   var out = (new sjcl.misc.hmac(key, sjcl.hash.sha256)).mac(password.value);
   p.value = sjcl.codec.hex.fromBits(out)
 

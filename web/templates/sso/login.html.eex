@@ -17,8 +17,15 @@
   </div>
 
   <div class="form-group">
+    <label for="password" class="col-sm-2 control-label">Password</label>
+    <div class="col-sm-10">
+      <input type="password" id="password" placeholder="Password" class="form-control" name="password" required="required">
+    </div>
+  </div>
+
+  <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-warning">Login</button>
+      <input type="button" class="btn btn-warning" value="Login" onclick="formhash(this.form, this.form.password, this.form.email);" />
     </div>
   </div>
 

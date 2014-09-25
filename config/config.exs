@@ -16,12 +16,18 @@ config :phoenix, SbSso.Router,
   debug_errors: false,
   error_controller: SbSso.PageController
 
+config :phoenix, :sso,
+  payload_secret: "proutproutprout",
+  redirect_url: "http://localhost:8080/session/sso_login?"
+
 config :phoenix, :code_reloader,
   enabled: false
 
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
+
+config :bcrypt, [mechanism: :port, pool_size: 4]
 
 # Import environment specific config. Note, this must remain at the bottom of
 # this file to properly merge your previous config entries.

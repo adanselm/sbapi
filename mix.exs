@@ -13,7 +13,7 @@ defmodule SbSso.Mixfile do
   def application do
     [
       mod: { SbSso, [] },
-      applications: [:phoenix, :cowboy, :logger, :postgrex, :ecto, :erlsha2]
+      applications: [:phoenix, :cowboy, :logger, :postgrex, :ecto, :erlsha2, :bcrypt]
     ]
   end
 
@@ -28,7 +28,8 @@ defmodule SbSso.Mixfile do
       {:cowboy, "~> 1.0.0"},
       {:postgrex, ">= 0.0.0"},
       {:ecto, "~> 0.2.0"},
-      {:erlsha2, github: "vinoski/erlsha2"}
+      {:erlsha2, github: "vinoski/erlsha2"},
+      {:bcrypt, github: "smarkets/erlang-bcrypt"}
     ]
   end
 end

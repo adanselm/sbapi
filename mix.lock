@@ -1,4 +1,5 @@
-%{"cowboy": {:package, "1.0.0"},
+%{"bcrypt": {:git, "git://github.com/smarkets/erlang-bcrypt.git", "14641089aa8ad8f9c17886c3ecf534868a282431", []},
+  "cowboy": {:package, "1.0.0"},
   "cowlib": {:package, "1.0.0"},
   "decimal": {:package, "0.2.5"},
   "ecto": {:package, "0.2.5"},

@@ -17,4 +17,12 @@ defmodule SbSso.Queries do
             select: user
     Repo.all(query) |> List.first
   end
+
+  def user_detail_from_email_query(email) do
+    s_email = to_string(email)
+    query = from user in Users,
+            where: user.email == ^s_email,
+            select: user
+    Repo.all(query) |> List.first
+  end
 end
