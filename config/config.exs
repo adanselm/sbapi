@@ -17,6 +17,12 @@ config :phoenix, SbSso.Router,
   error_controller: SbSso.PageController
 
 config :phoenix, :sso,
+  db_config: %{ db_user: "qptfyuhwkewnvq",
+                db_pwd: "tVXbJtWkfjdS5g1cOz_JvKAXVJ",
+                db_host: "ec2-54-225-101-4.compute-1.amazonaws.com",
+                db_port: "5432",
+                db_name: "d38a4b277negal",
+                db_options: "ssl=true" },
   payload_secret: "proutproutprout",
   redirect_url: "http://localhost:8080/session/sso_login?"
 

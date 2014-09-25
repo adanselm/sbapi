@@ -2,7 +2,8 @@ defmodule SbSso.Repo do
   use Ecto.Repo, adapter: Ecto.Adapters.Postgres
 
   def conf do
-    parse_url "ecto://qptfyuhwkewnvq:tVXbJtWkfjdS5g1cOz_JvKAXVJ@ec2-54-225-101-4.compute-1.amazonaws.com:5432/d38a4b277negal?ssl=true"
+    c = Application.get_env(:phoenix, :sso)[:db_config]
+    parse_url "ecto://#{c.db_user}:#{c.db_pwd}@#{c.db_host}:#{c.db_port}/#{c.db_name}?#{c.db_options}"
   end
 
   def priv do
