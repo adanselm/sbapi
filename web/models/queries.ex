@@ -2,6 +2,7 @@ defmodule SbSso.Queries do
   import Ecto.Query
   alias SbSso.Users
   alias SbSso.Repo
+  alias SbSso.LoginAttempts
 
   def users_query do
     query = from users in Users,
@@ -25,4 +26,13 @@ defmodule SbSso.Queries do
             select: user
     Repo.all(query) |> List.first
   end
+
+  def attempts_after_datetime_query(userid, datetime) do
+    int_id = if is_integer(userid) do userid else String.to_integer(userid) end
+    query = from attempt in LoginAttempts,
+            where: attempt.userid == ^int_id and attempt.time > ^datetime,
+            select: attempt
+    Repo.all(query)
+  end
+
 end

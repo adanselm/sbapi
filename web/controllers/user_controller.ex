@@ -4,6 +4,7 @@ defmodule SbSso.UserController do
   alias SbSso.Repo
   alias SbSso.Queries
   alias SbSso.Users
+  alias SbSso.CryptoHelpers
 
   def index(conn, _params) do
     users = Queries.users_query
@@ -15,8 +16,17 @@ defmodule SbSso.UserController do
   end
 
   def create(conn, params) do
+    previous_user = Queries.user_detail_from_email_query(params["email"])
+    if previous_user !== nil do
+      raise RuntimeError, message: "This user already exists."
+    end
+
     cdate = Ecto.DateTime.from_erl(:erlang.localtime())
-    user = %Users{email: params["email"], first_name: params["firstname"], last_name: params["lastname"], creation_datetime: cdate }
+    salt = CryptoHelpers.generate_salt()
+    pass = CryptoHelpers.hash(params["clienthash"], salt)
+    user = %Users{email: params["email"], first_name: params["firstname"],
+      last_name: params["lastname"], creation_datetime: cdate,
+      username: params["username"], passwd_hash: to_string(pass), salt: to_string(salt)}
     Repo.insert(user)
     redirect conn, Router.user_path(:index)
   end

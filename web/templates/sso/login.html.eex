@@ -3,7 +3,7 @@
     <h2>User login</h2>
   </div>
   <div class="col-md-8">
-    No account? Create one! <a href="<%= user_path(:new) %>" class="btn btn-danger pull-right"><i class="glyphicon glyphicon-plus glyphicon-white"></i> Create account</a>
+    <a href="<%= user_path(:new) %>" class="btn btn-danger pull-right"><i class="glyphicon glyphicon-plus glyphicon-white"></i> No account yet? Create one!</a>
   </div>
 </div>
 <form class="form-horizontal" name="userlogin" method="post" action="/sso">

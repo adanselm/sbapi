@@ -11,7 +11,7 @@ defmodule SbSso.CryptoHelpers do
   end
 
   def generate_salt() do
-    {:ok, salt} = :bcrypt.gen_salt(30)
+    {:ok, salt} = :bcrypt.gen_salt(10)
     salt
   end
 
