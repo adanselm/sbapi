@@ -34,6 +34,13 @@ body {
   line-height: 40px;
 }
 
+.header .nav {
+  padding: 1em;
+}
+
+.header .nav .active {
+}
+
 /* Custom page footer */
 .footer {
   padding-top: 19px;

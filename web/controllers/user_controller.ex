@@ -8,7 +8,8 @@ defmodule SbSso.UserController do
 
   def index(conn, _params) do
     users = Queries.users_query
-    render conn, "index", users: users
+    email = get_session(conn, :email)
+    render conn, "index", users: users, email: email
   end
 
   def new(conn, _params) do
@@ -28,7 +29,8 @@ defmodule SbSso.UserController do
       last_name: params["lastname"], creation_datetime: cdate,
       username: params["username"], passwd_hash: to_string(pass), salt: to_string(salt)}
     Repo.insert(user)
-    redirect conn, Router.user_path(:index)
+    conn = put_session(conn, :email, params["email"])
+    redirect conn, Router.user_path(:index), email: params["email"]
   end
 
   def show(conn, params) do

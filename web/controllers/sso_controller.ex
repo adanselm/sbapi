@@ -4,6 +4,7 @@ defmodule SbSso.SsoController do
   alias SbSso.CryptoHelpers
   alias SbSso.Repo
   alias SbSso.LoginAttempts
+  alias SbSso.UserController
 
   def show_login(conn, params) do
     render conn, "login", params: params
@@ -15,22 +16,22 @@ defmodule SbSso.SsoController do
   """
   def do_login(conn, params) do
     sso = authenticate(params)
-    payload = URI.encode_query(sso)
-              |> :base64.encode_to_string
-              |> to_string
-    sig = payload
-          |> CryptoHelpers.sign(get_secret())
-    encoded_payload = URI.encode_www_form(payload)
-    url = get_url <> "sso=" <> encoded_payload <> "&sig=" <> sig
-    redirect conn, url
+    conn = put_session(conn, :email, sso["email"])
+    login_response(conn, params, sso)
   end
+
+  @doc """
+  """
+  def do_logout(conn, params) do
+    conn = put_session(conn, :email, nil)
+    UserController.index(conn, params)
+  end
+
 
   @doc """
   Verify Payload signature and extract its content
   """
-  def parse(params) do
-    sso = params["sso"]
-    sig = params["sig"]
+  def parse(%{"sso" => sso, "sig" => sig}) do
 
     if CryptoHelpers.sign(sso, get_secret()) !== sig do
       raise RuntimeError, message: "Bad signature for payload"
@@ -40,6 +41,10 @@ defmodule SbSso.SsoController do
     URI.decode_query(decoded)
   end
 
+  def parse(_) do
+    nil
+  end
+
   """
   1.Retrieve user from DB
   2.Hash the (already client-hashed) password in params using salt in DB
@@ -47,18 +52,19 @@ defmodule SbSso.SsoController do
   """
   defp authenticate(params) do
     user = Queries.user_detail_from_email_query(params["email"])
-    if user !== nil do
-      if check_brute(user.id) do
-        raise RuntimeError, message: "Too many login attempts. Retry in 2 hours."
-      else
-        insert_login_attempt(user)
-      end
+    if user === nil do
+      raise RuntimeError, message: "Username/password mismatch"
+    end
+
+    if check_brute(user.id) do
+      raise RuntimeError, message: "Too many login attempts. Retry in 2 hours."
     end
 
     expected_hash = user.passwd_hash
     actual_hash = to_string(CryptoHelpers.hash(params["clienthash"], user.salt))
 
     if actual_hash !== expected_hash do
+      insert_login_attempt(user)
       raise RuntimeError, message: "Username/password mismatch"
     end
 
@@ -85,6 +91,21 @@ defmodule SbSso.SsoController do
     datetime = Ecto.DateTime.from_erl(:erlang.localtime())
     attempt = %LoginAttempts{:userid => user.id, :time => datetime}
     Repo.insert(attempt)
+  end
+
+  defp login_response(conn, %{"nonce" => nonce}, sso) when is_bitstring(nonce) and byte_size(nonce) !== 0 do
+    payload = URI.encode_query(sso)
+              |> :base64.encode_to_string
+              |> to_string
+    sig = payload
+          |> CryptoHelpers.sign(get_secret())
+    encoded_payload = URI.encode_www_form(payload)
+    url = get_url <> "sso=" <> encoded_payload <> "&sig=" <> sig
+    redirect conn, url
+  end
+
+  defp login_response(conn, params, sso) do
+    UserController.index(conn, params)
   end
 
   defp get_secret do

@@ -5,4 +5,5 @@ defmodule SbSso.Router do
   resources "/users", SbSso.UserController
   get "/sso", SbSso.SsoController, :show_login
   post "/sso", SbSso.SsoController, :do_login
+  get "/logout", SbSso.SsoController, :do_logout
 end
