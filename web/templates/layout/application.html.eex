@@ -21,27 +21,28 @@
   </head>
 
   <body>
-    <div class="container">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li><a href="http://springbeats.com">Home</a></li>
-          <li><a href="http://springbeats.com/blog">Blog</a></li>
-          <%= if @email == nil do %>
-            <li><a href="/sso" class="btn btn-primary"><i class="glyphicon glyphicon-user glyphicon-white"></i> Sign In</a></li>
-            <li><a href="<%= user_path(:new) %>" class="btn btn-danger"><i class="glyphicon glyphicon-plus glyphicon-white"></i> Sign Up</a></li>
-          <%= else %>
-            <li><a href="/logout" class="btn btn-danger"><i class="glyphicon glyphicon-log-out glyphicon-white"></i> Logout</a></li>
-          <%= end %>
-        </ul>
-        <span class="logo"></span>
-      </div>
+  <div class="container">
+    <div class="preheader"></div>
+    <div class="header">
+      <ul class="nav nav-pills pull-right">
+        <li><a href="http://springbeats.com">Home</a></li>
+        <li><a href="http://springbeats.com/blog">Blog</a></li>
+        <%= if @email == nil do %>
+          <li><a href="/sso" class="btn btn-primary"><i class="glyphicon glyphicon-user glyphicon-white"></i> Sign In</a></li>
+          <li><a href="<%= user_path(:new) %>" class="btn btn-danger"><i class="glyphicon glyphicon-plus glyphicon-white"></i> Sign Up</a></li>
+        <%= else %>
+          <li><a href="/logout" class="btn btn-danger"><i class="glyphicon glyphicon-log-out glyphicon-white"></i> Logout</a></li>
+        <%= end %>
+      </ul>
+      <span class="logo"></span>
+    </div>
 
-      <%= @inner %>
+    <%= @inner %>
 
-      <div class="footer">
-        <p>Made in Toulouse © Copyright 2012-2014 Springbeats, Sarl. All rights reserved.</p>
-      </div>
+    <div class="footer">
+      <p>Made in Toulouse © Copyright 2012-2014 Springbeats, Sarl. All rights reserved.</p>
+    </div>
 
-    </div> <!-- /container -->
+  </div> <!-- /container -->
   </body>
 </html>
