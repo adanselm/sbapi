@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= if @action == "delete" do %>
+      <h2>Are you sure want to delete <%= @user.email%>??</h2>
+    <%= else %>
+      <h2><%= @user.email %></h2>
+    <%= end %>
+  </div>
+  <div class="col-md-12">
+    <p>
+    <%= @user.first_name %>
+    <%= @user.last_name %>
+    </p>
+  </div>
+  <div class="col-md-12">
+    <form action="<%= admin_user_path(:destroy, @user.id) %>" method="post">
+      <a href="<%= admin_user_path(:index) %>" class="btn btn-success"><i class="glyphicon glyphicon-arrow-left"></i> Back</a>
+      <%= if @action == "delete" do %>
+        <input type="hidden" name="_method" value="DELETE">
+      <input type="submit" value="Delete" class="btn btn-danger pull-right">
+      <%= end %>
+    </form>
+  </div>
+</div>

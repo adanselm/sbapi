@@ -10,7 +10,6 @@
     <title>Users Dashboard</title>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
@@ -21,28 +20,29 @@
   </head>
 
   <body>
-  <div class="container">
-    <div class="preheader"></div>
     <div class="header">
-      <ul class="nav nav-pills pull-right">
-        <li><a href="http://springbeats.com">Home</a></li>
-        <li><a href="http://springbeats.com/blog">Blog</a></li>
-        <%= if @email == nil do %>
-          <li><a href="/sso" class="btn btn-primary"><i class="glyphicon glyphicon-user glyphicon-white"></i> Sign In</a></li>
-          <li><a href="<%= user_path(:new) %>" class="btn btn-danger"><i class="glyphicon glyphicon-plus glyphicon-white"></i> Sign Up</a></li>
-        <%= else %>
-          <li><a href="/logout" class="btn btn-danger"><i class="glyphicon glyphicon-log-out glyphicon-white"></i> Logout</a></li>
-        <%= end %>
-      </ul>
-      <span class="logo"></span>
+      <div id="header-container">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://springbeats.com">home</a></li>
+          <li><a href="http://springbeats.com/blog">blog</a></li>
+          <%= if @email == nil do %>
+            <li><a href="/sso" class="btn btn-primary"><i class="glyphicon glyphicon-user glyphicon-white"></i> sign in</a></li>
+            <li><a href="<%= user_path(:new) %>" class="btn btn-danger"><i class="glyphicon glyphicon-plus glyphicon-white"></i> sign up</a></li>
+          <%= else %>
+            <li><a href="/logout" class="btn btn-danger"><i class="glyphicon glyphicon-log-out glyphicon-white"></i> logout</a></li>
+          <%= end %>
+        </ul>
+        <span class="logo"></span>
+      </div>
     </div>
+    <div class="container">
 
-    <%= @inner %>
+      <%= @inner %>
 
-    <div class="footer">
-      <p>Made in Toulouse © Copyright 2012-2014 Springbeats, Sarl. All rights reserved.</p>
-    </div>
+      <div class="footer">
+        <p>Made in Toulouse © Copyright 2012-2014 Springbeats, Sarl. All rights reserved.</p>
+      </div>
 
-  </div> <!-- /container -->
+    </div> <!-- /container -->
   </body>
 </html>

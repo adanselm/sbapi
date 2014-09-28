@@ -103,8 +103,7 @@ defmodule SbSso.SsoController do
     url = get_url <> "sso=" <> encoded_payload <> "&sig=" <> sig
     redirect conn, url
   end
-
-  defp login_response(conn, params, sso) do
+  defp login_response(conn, params, _sso) do
     UserController.index(conn, params)
   end
 
