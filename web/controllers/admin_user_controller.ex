@@ -20,12 +20,14 @@ defmodule SbSso.Admin.UserController do
 
   def show(conn, params) do
     user = Queries.user_detail_query(params["id"])
-    render conn, "user", user: user, action: params["action"]
+    email = get_session(conn, :email)
+    render conn, "user", user: user, action: params["action"], email: email
   end
 
   def edit(conn, %{"id" => id}) do
     user = Queries.user_detail_query(id)
-    render conn, "edit", user: user
+    email = get_session(conn, :email)
+    render conn, "edit", user: user, email: email
   end
 
   def update(conn, params) do

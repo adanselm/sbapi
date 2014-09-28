@@ -7,9 +7,8 @@ defmodule SbSso.UserController do
   alias SbSso.CryptoHelpers
 
   def index(conn, _params) do
-    users = Queries.users_query
     email = get_session(conn, :email)
-    render conn, "index", users: users, email: email
+    render conn, "index", email: email
   end
 
   def new(conn, _params) do
@@ -28,33 +27,52 @@ defmodule SbSso.UserController do
     user = %Users{email: params["email"], first_name: params["firstname"],
       last_name: params["lastname"], creation_datetime: cdate,
       username: params["username"], passwd_hash: to_string(pass), salt: to_string(salt)}
-    Repo.insert(user)
-    conn = put_session(conn, :email, params["email"])
-    redirect conn, Router.user_path(:index), email: params["email"]
+    new_user = Repo.insert(user)
+    conn = sign_in(conn, new_user.email, new_user.id)
+    redirect conn, Router.user_path(:index), email: new_user.email
   end
 
   def show(conn, params) do
-    user = Queries.user_detail_query(params["id"])
+    email = get_session(conn, :email)
+    if email === nil do
+      halt conn
+    end
+    user = Queries.user_detail_from_email_query(email)
     render conn, "user", user: user, action: params["action"]
   end
 
-  def edit(conn, %{"id" => id}) do
-    user = Queries.user_detail_query(id)
+  def edit(conn, _params) do
+    email = get_session(conn, :email)
+    if email === nil do
+      halt conn
+    end
+    user = Queries.user_detail_from_email_query(email)
     render conn, "edit", user: user
   end
 
   def update(conn, params) do
-    IO.inspect params["type"]
     user = Queries.user_detail_query(params["id"])
-    user = %{user | email: params["email"], first_name: params["firstname"], last_name: params["lastname"]}
+    if user.email !== get_session(conn, :email) do
+      raise RuntimeError, message: "Can't update details of a different user than the one logged in"
+    end
+    user = %{user | email: params["email"], first_name: params["firstname"],
+            last_name: params["lastname"]}
     Repo.update(user)
     redirect conn, Router.user_path(:index)
   end
 
   def destroy(conn, params) do
     user = Queries.user_detail_query(params["id"])
+    if user.email !== get_session(conn, :email) do
+      raise RuntimeError, message: "Can't delete a different user than the one logged in"
+    end
     Repo.delete(user)
     redirect conn, Router.user_path(:index)
+  end
+
+  defp sign_in(conn, email, id) do
+    conn = put_session(conn, :email, email)
+    put_session(conn, :id, id)
   end
 
 end
