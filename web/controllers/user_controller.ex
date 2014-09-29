@@ -29,7 +29,7 @@ defmodule SbSso.UserController do
       username: params["username"], passwd_hash: to_string(pass), salt: to_string(salt)}
     new_user = Repo.insert(user)
     conn = sign_in(conn, new_user.email, new_user.id)
-    redirect conn, Router.user_path(:index), email: new_user.email
+    render conn, "index", email: new_user.email
   end
 
   def show(conn, params) do

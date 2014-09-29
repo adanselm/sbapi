@@ -4,7 +4,7 @@ defmodule SbSso.SsoController do
   alias SbSso.CryptoHelpers
   alias SbSso.Repo
   alias SbSso.LoginAttempts
-  alias SbSso.UserController
+  alias SbSso.Router
 
   def show_login(conn, params) do
     render conn, "login", params: params
@@ -22,9 +22,9 @@ defmodule SbSso.SsoController do
 
   @doc """
   """
-  def do_logout(conn, params) do
+  def do_logout(conn, _params) do
     conn = put_session(conn, :email, nil)
-    UserController.index(conn, params)
+    redirect conn, Router.user_path(:index)
   end
 
 
@@ -79,7 +79,6 @@ defmodule SbSso.SsoController do
     ref_ts = :calendar.gregorian_seconds_to_datetime(ts_minus_2_hours)
               |> Ecto.DateTime.from_erl
     attempts = Queries.attempts_after_datetime_query(userid, ref_ts)
-    IO.inspect(length(attempts))
     if length(attempts) > 5 do
       true
     else
@@ -103,8 +102,8 @@ defmodule SbSso.SsoController do
     url = get_url <> "sso=" <> encoded_payload <> "&sig=" <> sig
     redirect conn, url
   end
-  defp login_response(conn, params, _sso) do
-    UserController.index(conn, params)
+  defp login_response(conn, _params, _sso) do
+    redirect conn, Router.user_path(:index)
   end
 
   defp get_secret do

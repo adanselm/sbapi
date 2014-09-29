@@ -23,10 +23,32 @@
     </div>
   </div>
 
+  <div class="form-group form-group-lg">
+    <label for="username" class="col-sm-2 control-label">Public Username (used for forum discussions)</label>
+    <div class="col-sm-6">
+      <input type="text" id="username" placeholder="Public Username" class="form-control" name="username" required="required">
+    </div>
+  </div>
+
+  <div class="form-group form-group-lg">
+    <label for="password" class="col-sm-2 control-label">Password</label>
+    <div class="col-sm-6">
+      <input type="password" id="password" placeholder="Password" class="form-control" name="password" required="required">
+    </div>
+  </div>
+
+  <div class="form-group form-group-lg">
+    <label for="passwordconf" class="col-sm-2 control-label">Confirm Password</label>
+    <div class="col-sm-6">
+      <input type="password" id="passwordconf" placeholder="Retype Password" class="form-control" name="passwordconf" required="required">
+      <span id="confirmMessage" class="confirmMessage"></span>
+    </div>
+  </div>
+
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <a href="/users" class="btn btn-success"><i class="glyphicon glyphicon-arrow-left"></i> Back</a>
-      <button type="submit" class="btn btn-warning">Update</button>
+      <a href="<%= user_path(:index) %>" class="btn btn-success"><i class="glyphicon glyphicon-arrow-left"></i> Back</a>
+      <input type="button" class="btn btn-warning btn-lg" value="Update" onclick="formhash(this.form, this.form.password, this.form.passwordconf, this.form.email);"/>
     </div>
   </div>
 

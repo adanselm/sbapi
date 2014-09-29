@@ -15,7 +15,7 @@ defmodule SbSso.CryptoHelpers do
     salt
   end
 
-  def hash(password, salt) do
+  def hash(password, salt) when password !== nil and salt !== nil do
     {:ok, h} = :bcrypt.hashpw(password, salt)
     h
   end
