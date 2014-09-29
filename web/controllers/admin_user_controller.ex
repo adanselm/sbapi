@@ -8,10 +8,10 @@ defmodule SbSso.Admin.UserController do
   plug :authenticate, :admin
   plug :action
 
-  def index(conn, _params) do
+  def index(conn, params) do
     users = Queries.users_query
     email = get_session(conn, :email)
-    render conn, "index", users: users, email: email
+    render conn, "index", users: users, email: email, params: params
   end
 
   def new(conn, params) do
@@ -21,13 +21,13 @@ defmodule SbSso.Admin.UserController do
   def show(conn, params) do
     user = Queries.user_detail_query(params["id"])
     email = get_session(conn, :email)
-    render conn, "user", user: user, action: params["action"], email: email
+    render conn, "user", user: user, action: params["action"], email: email, params: params
   end
 
-  def edit(conn, %{"id" => id}) do
+  def edit(conn, params = %{"id" => id}) do
     user = Queries.user_detail_query(id)
     email = get_session(conn, :email)
-    render conn, "edit", user: user, email: email
+    render conn, "edit", user: user, email: email, params: params
   end
 
   def update(conn, params) do
@@ -35,13 +35,13 @@ defmodule SbSso.Admin.UserController do
     user = Queries.user_detail_query(params["id"])
     user = %{user | email: params["email"], first_name: params["firstname"], last_name: params["lastname"]}
     Repo.update(user)
-    redirect conn, Router.admin_user_path(:index)
+    redirect conn, Router.admin_user_path(:index, params)
   end
 
   def destroy(conn, params) do
     user = Queries.user_detail_query(params["id"])
     Repo.delete(user)
-    redirect conn, Router.admin_user_path(:index)
+    redirect conn, Router.admin_user_path(:index, params)
   end
 
   defp authenticate(conn, :admin) do

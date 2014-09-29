@@ -7,7 +7,7 @@ defmodule SbSso.SsoController do
   alias SbSso.Router
 
   def show_login(conn, params) do
-    render conn, "login", params: params
+    render conn, "login", params: params, action: "login"
   end
 
   @doc """
@@ -22,9 +22,9 @@ defmodule SbSso.SsoController do
 
   @doc """
   """
-  def do_logout(conn, _params) do
+  def do_logout(conn, params) do
     conn = put_session(conn, :email, nil)
-    redirect conn, Router.user_path(:index)
+    redirect conn, Router.user_path(:index, params)
   end
 
 
@@ -102,8 +102,8 @@ defmodule SbSso.SsoController do
     url = get_url <> "sso=" <> encoded_payload <> "&sig=" <> sig
     redirect conn, url
   end
-  defp login_response(conn, _params, _sso) do
-    redirect conn, Router.user_path(:index)
+  defp login_response(conn, params, _sso) do
+    redirect conn, Router.user_path(:index, params)
   end
 
   defp get_secret do

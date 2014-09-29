@@ -46,6 +46,7 @@
         </div>
       </div>
 
+      <input type="hidden" name="nonce" value="<%= extract_nonce(@params) %>">
       <div class="form-group form-group-lg">
         <div class="col-sm-offset-2 col-sm-6">
           <input type="button" class="btn btn-warning btn-lg" value="Save" onclick="formhash(this.form, this.form.password, this.form.passwordconf, this.form.email);" />

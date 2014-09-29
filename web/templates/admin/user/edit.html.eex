@@ -2,53 +2,38 @@
 <form class="form-horizontal" action="<%= admin_user_path(:update, @user.id) %>" method="post">
   <input type="hidden" name="_method" value="PUT">
 
-  <div class="form-group">
+  <div class="form-group form-group-lg">
     <label for="email" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-10">
       <input type="email" id="email" placeholder="Email" value="<%= @user.email %>" class="form-control" name="email" required="required">
     </div>
   </div>
 
-  <div class="form-group">
+  <div class="form-group form-group-lg">
     <label for="firstname" class="col-sm-2 control-label">First Name</label>
     <div class="col-sm-10">
-      <textarea id="firstname" placeholder="First Name" class="form-control" name="firstname" required="required"><%= @user.first_name %></textarea>
+      <input id="firstname" placeholder="First Name" class="form-control" name="firstname" required="required" value="<%= @user.first_name %>" />
     </div>
   </div>
 
-  <div class="form-group">
+  <div class="form-group form-group-lg">
     <label for="lastname" class="col-sm-2 control-label">Last Name</label>
     <div class="col-sm-10">
-      <textarea id="lastname" placeholder="Last Name" class="form-control" name="lastname" required="required"><%= @user.last_name %></textarea>
+      <input id="lastname" placeholder="Last Name" class="form-control" name="lastname" required="required" value="<%= @user.last_name %>" />
     </div>
   </div>
 
   <div class="form-group form-group-lg">
     <label for="username" class="col-sm-2 control-label">Public Username (used for forum discussions)</label>
     <div class="col-sm-6">
-      <input type="text" id="username" placeholder="Public Username" class="form-control" name="username" required="required">
-    </div>
-  </div>
-
-  <div class="form-group form-group-lg">
-    <label for="password" class="col-sm-2 control-label">Password</label>
-    <div class="col-sm-6">
-      <input type="password" id="password" placeholder="Password" class="form-control" name="password" required="required">
-    </div>
-  </div>
-
-  <div class="form-group form-group-lg">
-    <label for="passwordconf" class="col-sm-2 control-label">Confirm Password</label>
-    <div class="col-sm-6">
-      <input type="password" id="passwordconf" placeholder="Retype Password" class="form-control" name="passwordconf" required="required">
-      <span id="confirmMessage" class="confirmMessage"></span>
+      <input type="text" id="username" placeholder="Public Username" class="form-control" name="username" required="required" value="<%= @user.username %>" />
     </div>
   </div>
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <a href="<%= admin_user_path(:index) %>" class="btn btn-success"><i class="glyphicon glyphicon-arrow-left"></i> Back</a>
-      <input type="button" class="btn btn-warning btn-lg" value="Update" onclick="formhash(this.form, this.form.password, this.form.passwordconf, this.form.email);"/>
+      <a href="<%= admin_user_path(:index) %>" class="btn btn-success btn-lg"><i class="glyphicon glyphicon-arrow-left"></i> Back</a>
+      <button type="submit" class="btn btn-warning btn-lg">Update</button>
     </div>
   </div>
 
