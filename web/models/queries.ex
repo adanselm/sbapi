@@ -16,7 +16,7 @@ defmodule SbSso.Queries do
     query = from user in Users,
             where: user.id == ^int_id,
             select: user
-    Repo.all(query) |> List.first
+    Repo.one(query)
   end
 
   def user_detail_from_email_query(email) do
@@ -24,7 +24,7 @@ defmodule SbSso.Queries do
     query = from user in Users,
             where: user.email == ^s_email,
             select: user
-    Repo.all(query) |> List.first
+    Repo.one(query)
   end
 
   def attempts_after_datetime_query(userid, datetime) do
