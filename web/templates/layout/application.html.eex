@@ -38,6 +38,14 @@
       </div>
     </div>
     <div class="container">
+      
+      <%= if notice = Flash.get(@conn, :notice) do %>
+      <div class="row">
+        <div class="col md-12">
+          <div class="alert alert-warning" role="alert"><%= notice %></div>
+        </div>
+      </div>
+      <% end %>
 
       <%= @inner %>
 

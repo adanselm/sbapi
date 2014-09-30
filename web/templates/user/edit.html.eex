@@ -33,7 +33,7 @@
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <a href="<%= user_path(:index) %>" class="btn btn-success btn-lg"><i class="glyphicon glyphicon-arrow-left"></i> Back</a>
-      <input type="button" class="btn btn-warning btn-lg" value="Update" onclick="formhash(this.form, this.form.password, this.form.passwordconf, this.form.email);"/>
+      <button type="submit" class="btn btn-warning btn-lg">Update</button>
     </div>
   </div>
 
