@@ -35,6 +35,13 @@ config :logger, :console,
 
 config :bcrypt, [mechanism: :port, pool_size: 4]
 
+config :exrecaptcha,
+  api_config: %{ verify_url: "http://www.google.com/recaptcha/api/verify",
+                 public_key: "my_public_key",
+                 private_key: "my_private_key" }
+
+
+
 # Import environment specific config. Note, this must remain at the bottom of
 # this file to properly merge your previous config entries.
 import_config "#{Mix.env}.exs"

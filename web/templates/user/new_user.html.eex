@@ -46,6 +46,13 @@
         </div>
       </div>
 
+      <div class="form-group form-group-lg">
+        <label for="recaptcha_response_field" class="col-sm-2 control-label">Type what you read</label>
+        <div class="col-sm-6">
+          <%= safe Exrecaptcha.display %>
+        </div>
+      </div>
+
       <input type="hidden" name="nonce" value="<%= extract_nonce(@params) %>">
       <div class="form-group form-group-lg">
         <div class="col-sm-offset-2 col-sm-6">

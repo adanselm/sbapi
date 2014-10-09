@@ -22,6 +22,7 @@ defmodule SbSso.UserController do
       raise RuntimeError, message: "This user already exists."
     end
 
+    :ok = verify_captcha(conn, params)
     cdate = Ecto.DateTime.from_erl(:erlang.localtime())
     salt = CryptoHelpers.generate_salt()
     pass = CryptoHelpers.hash(params["clienthash"], salt)
@@ -81,6 +82,12 @@ defmodule SbSso.UserController do
   end
   defp after_create(conn, params, user) do
     render conn, "index", email: user.email, params: params
+  end
+
+  defp verify_captcha(conn, %{"recaptcha_challenge_field" => challenge,
+                              "recaptcha_response_field" => response}) do
+    remote_ip = conn.remote_ip
+    Exrecaptcha.verify(remote_ip, challenge, response)
   end
 
 end
