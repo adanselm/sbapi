@@ -1,6 +1,6 @@
 # SbAPI : A user management app in Elixir/[Phoenix] that includes an SSO service
 
-This is what I use as an SSO server for [springbeats.com](springbeats.com) and our discourse forum at [discuss.springbeats.com](discuss.springbeats.com)
+This is what I use as an SSO server for [springbeats.com](http://springbeats.com) and our discourse forum at [discuss.springbeats.com](http://discuss.springbeats.com)
 
 [Phoenix]: https://github.com/phoenixframework/phoenix
 
@@ -71,6 +71,6 @@ SSL_PWD=abcdef SSL_KEYFILE=/abc/d.key ... MIX_ENV=prod elixir -pa _build/prod/co
 No policies at the moment. Send any improvement you got.
 
 ## Licensing
-Copyright © 2014 [Adrien Anselme](https://github.com/adanselm) for [Springbeats.com](springbeats.com) and [contributors](https://github.com/adanselm/sbapi/graphs/contributors)
+Copyright © 2014 [Adrien Anselme](https://github.com/adanselm) for [Springbeats.com](http://springbeats.com) and [contributors](https://github.com/adanselm/sbapi/graphs/contributors)
 MIT license. See COPYING for details.
 
