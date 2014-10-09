@@ -41,6 +41,26 @@ config :exrecaptcha,
 * verify_url: Google ReCaptcha's verify url
 * public_key, private_key: as given by Google on [https://www.google.com/recaptcha/admin#list](https://www.google.com/recaptcha/admin#list)
 
+In order to use https in production, modify `config/prod.exs` as follows:
+
+```elixir
+config :phoenix, SbSso.Router,
+  port: System.get_env("PORT"),
+  ssl: true,
+  keyfile: System.get_env("SSL_KEYFILE")",
+  certfile: System.get_env("SSL_CERTFILE")",
+  cacertfile: System.get_env("SSL_CACERTFILE")",
+  password: System.get_env("SSL_PWD"),
+  #...
+
+```
+
+You can then pass your environment variables at startup:
+
+```bash
+SSL_PWD=abcdef SSL_KEYFILE=/abc/d.key ... MIX_ENV=prod elixir -pa _build/prod/consolidated -S mix phoenix.start
+```
+
 ## Notes
 
 * For more information on the way SSO is implemented, please refer to [Discourse's website](https://meta.discourse.org/t/official-single-sign-on-for-discourse/13045), since it was done to comply to their protocol.
