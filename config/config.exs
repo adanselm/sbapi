@@ -11,19 +11,19 @@ config :phoenix, SbSso.Router,
   static_assets: true,
   cookies: true,
   session_key: "_sb_sso_key",
-  session_secret: "9L74O8B1EYC9CHQGY^^2(11T)N#0PBYM21K_1WES#O092!8L@*G)1B!P0(II4*WB8U(_71GI!&HJ+O8",
+  session_secret: "a_session_secret_generated_by_mix_when_creating_phoenix_project",
   catch_errors: true,
   debug_errors: false,
   error_controller: SbSso.PageController
 
 config :phoenix, :sso,
-  db_config: %{ db_user: "qptfyuhwkewnvq",
-                db_pwd: "tVXbJtWkfjdS5g1cOz_JvKAXVJ",
-                db_host: "ec2-54-225-101-4.compute-1.amazonaws.com",
+  db_config: %{ db_user: "db_user",
+                db_pwd: "db_password",
+                db_host: "db_host",
                 db_port: "5432",
-                db_name: "d38a4b277negal",
+                db_name: "database",
                 db_options: "ssl=true" },
-  payload_secret: "proutproutprout",
+  payload_secret: "my_payload_secret_as_defined_on_client",
   redirect_url: "http://localhost:8080/session/sso_login?"
 
 config :phoenix, :code_reloader,
@@ -37,8 +37,8 @@ config :bcrypt, [mechanism: :port, pool_size: 4]
 
 config :exrecaptcha,
   api_config: %{ verify_url: "http://www.google.com/recaptcha/api/verify",
-                 public_key: "my_public_key",
-                 private_key: "my_private_key" }
+                 public_key: "my_google_public_key",
+                 private_key: "my_google_private_key" }
 
 
 
