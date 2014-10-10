@@ -45,7 +45,8 @@ defmodule SbSso.Admin.UserController do
   end
 
   defp authenticate(conn, :admin) do
-    if get_session(conn, :email) === "adrien@springbeats.com" do
+    admin_email = Application.get_env(:phoenix, :sso)[:admin_email]
+    if get_session(conn, :email) === admin_email do
       conn
     else
       halt conn

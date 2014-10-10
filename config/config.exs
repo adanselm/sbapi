@@ -24,7 +24,8 @@ config :phoenix, :sso,
                 db_name: "database",
                 db_options: "ssl=true" },
   payload_secret: "my_payload_secret_as_defined_on_client",
-  redirect_url: "http://localhost:8080/session/sso_login?"
+  redirect_url: "http://localhost:8080/session/sso_login?",
+  admin_email: "adrien@springbeats.com"
 
 config :phoenix, :code_reloader,
   enabled: false
